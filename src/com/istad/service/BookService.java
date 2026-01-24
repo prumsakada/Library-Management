@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface BookService {
 
+
+    List<Book> searchBook(String key);
+
     void deleteByCode(String bookCode);
 
     void save(Book book);

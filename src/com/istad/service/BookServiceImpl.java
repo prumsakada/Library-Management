@@ -7,6 +7,7 @@ import com.istad.util.ViewUtil;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class BookServiceImpl implements BookService {
 
@@ -17,10 +18,21 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> searchBook(String key) {
+        try{
+            return bookServiceDao.searchBook(key);
+        } catch (SQLException e) {
+            ViewUtil.printHeader("SQL errored: "+e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
     public void deleteByCode(String bookCode) {
         try{
             if (!bookServiceDao.existByCode(bookCode))
-                throw new RuntimeException("Member code do not exist...!");
+                throw new RuntimeException("Book code do not exist...!");
             int affactedRow = bookServiceDao.deleteByCode(bookCode);
             if (affactedRow < 1)
                 throw new RuntimeException("Delete Operation failed...");
@@ -82,7 +94,7 @@ public class BookServiceImpl implements BookService {
         try{
             return bookServiceDao.findAll();
         }catch (SQLException e){
-            System.out.println("SQL errored: "+e.getMessage());
+            ViewUtil.printHeader("SQL errored: "+e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
 

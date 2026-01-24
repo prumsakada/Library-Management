@@ -4,9 +4,12 @@ import com.istad.model.Book;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public interface BookServiceDao {
+
+    List<Book> searchBook(String key) throws SQLException;
 
     boolean existByCode(String bookCode) throws SQLException;
 

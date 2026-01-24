@@ -60,7 +60,6 @@ public class ViewUtil {
 
         Table table = new Table(10, BorderStyle.UNICODE_ROUND_BOX_WIDE);
 
-
         table.addCell("ID");
         table.addCell("CODE");
         table.addCell("TITLE");
@@ -71,7 +70,6 @@ public class ViewUtil {
         table.addCell("PRICE");
         table.addCell("QTY");
         table.addCell("STATUS");
-
 
         for (Book books : bookList) {
             table.addCell(books.getBookId().toString());

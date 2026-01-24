@@ -49,8 +49,7 @@ public class LibraryApp {
             switch (bookMenu) {
                 case 0 -> returnBack();
                 case 1 -> listAllBook();
-                case 2 -> {
-                }
+                case 2 -> searchBooks();
                 case 3 -> addBook();
                 case 4 -> updateBook();
                 case 5 -> deleteBook();
@@ -124,12 +123,12 @@ public class LibraryApp {
 
     private void deleteBook() {
         ViewUtil.printHeader("Delete a Book By Code");
-        String code = InputUtil.getText("Enter Code: ");
+        String bookCode = InputUtil.getText("Enter Code: ");
 
         String confirmation = InputUtil.getText("Are you sure to delete? [ Y / N ]");
         if (confirmation.equalsIgnoreCase("y") || confirmation.equalsIgnoreCase("yes"))
             try {
-                bookService.deleteByCode(code);
+                bookService.deleteByCode(bookCode);
                 ViewUtil.printHeader("Delete Successfully...!");
             } catch (RuntimeException e) {
                 ViewUtil.printHeader(e.getMessage());
@@ -231,6 +230,18 @@ public class LibraryApp {
             }
         else
             ViewUtil.printHeader("Delete operation cancelled..!");
+    }
+
+    private void searchBooks(){
+        ViewUtil.printHeader("Search Book By << code , title , author " +
+                ", category , publisher, publishYar >>");
+        String key = InputUtil.getText("Enter your Option");
+        try {
+            List<Book> bookList = bookService.searchBook(key);
+            ViewUtil.printBookList(bookList);
+        }catch (RuntimeException e){
+            ViewUtil.printHeader(e.getMessage());
+        }
     }
 
 }
