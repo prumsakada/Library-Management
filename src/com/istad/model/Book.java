@@ -7,6 +7,7 @@ public class Book {
     private String bookCode;
     private String title;
     private String author;
+    private String category;
     private String publisher;
     private Integer publishYear;
     private BigDecimal price;
@@ -16,17 +17,46 @@ public class Book {
 
     public Book(){}
 
-    public Book(String bookCode, String title, String author
-            , String publisher, Integer publishYear, BigDecimal price
-            , Integer qty, String status) {
-        this.bookCode = bookCode;
+    public Book(String title, String author, String category, String publisher
+            , Integer publishYear, BigDecimal price, Integer qty, String status) {
         this.title = title;
         this.author = author;
+        this.category = category;
         this.publisher = publisher;
         this.publishYear = publishYear;
         this.price = price;
         this.qty = qty;
         this.status = status;
+    }
+
+    public Book(String bookCode, String title, BigDecimal price, Integer qty, String status) {
+        this.bookCode = bookCode;
+        this.title = title;
+        this.price = price;
+        this.qty = qty;
+        this.status = status;
+    }
+
+    public Book(String bookCode, String title, String author, String category
+            , String publisher, Integer publishYear, BigDecimal price
+            , Integer qty, String status) {
+        this.bookCode = bookCode;
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.publisher = publisher;
+        this.publishYear = publishYear;
+        this.price = price;
+        this.qty = qty;
+        this.status = status;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getStatus() {
