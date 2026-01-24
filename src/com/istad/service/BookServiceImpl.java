@@ -20,7 +20,7 @@ public class BookServiceImpl implements BookService {
     public void deleteByCode(String bookCode) {
         try{
             if (!bookServiceDao.existByCode(bookCode))
-                throw new RuntimeException("Product code do not exist...!");
+                throw new RuntimeException("Member code do not exist...!");
             int affactedRow = bookServiceDao.deleteByCode(bookCode);
             if (affactedRow < 1)
                 throw new RuntimeException("Delete Operation failed...");

@@ -1,6 +1,7 @@
 package com.istad.util;
 
 import com.istad.model.Book;
+import com.istad.model.Member;
 import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.CellStyle;
 import org.nocrala.tools.texttablefmt.Table;
@@ -83,6 +84,35 @@ public class ViewUtil {
             table.addCell(books.getPrice().toString());
             table.addCell(books.getQty().toString());
             table.addCell(books.getStatus());
+        }
+
+        print(table.render(), true);
+    } public static void printMemberList(List<Member> memberList) {
+
+        Table table = new Table(9, BorderStyle.UNICODE_ROUND_BOX_WIDE);
+
+
+        table.addCell("ID");
+        table.addCell("CODE");
+        table.addCell("NAME");
+        table.addCell("GENDER");
+        table.addCell("PHONE");
+        table.addCell("EMAIL");
+        table.addCell("ADDRESS");
+        table.addCell("JOIN_DATE");
+        table.addCell("STATUS");
+
+
+        for (Member members : memberList) {
+            table.addCell(members.getMemberId().toString());
+            table.addCell(members.getMemberCode());
+            table.addCell(members.getFullName());
+            table.addCell(members.getGender());
+            table.addCell(members.getPhone());
+            table.addCell(members.getEmail());
+            table.addCell(members.getAddress());
+            table.addCell(members.getJoinDate().toString());
+            table.addCell(members.getStatus());
         }
 
         print(table.render(), true);

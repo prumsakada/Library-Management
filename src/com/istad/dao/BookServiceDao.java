@@ -10,7 +10,7 @@ public interface BookServiceDao {
 
     boolean existByCode(String bookCode) throws SQLException;
 
-    int deleteByCode(String code) throws SQLException;
+    int deleteByCode(String bookCode) throws SQLException;
 
     int save(Book book) throws SQLException;
 
