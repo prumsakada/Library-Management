@@ -27,7 +27,7 @@ public class ViewUtil {
         CellStyle cellStyle = new CellStyle(CellStyle.HorizontalAlign.center);
         table.addCell("App Menu", cellStyle);
         table.addCell("1) List All  2) Search  3) Add new  4) Update", cellStyle);
-        table.addCell("5) Delete  0) Back to System", cellStyle);
+        table.addCell("5) Delete  0) Back", cellStyle);
         table.setColumnWidth(0, 50, 100);
 
         System.out.println(table.render());
@@ -37,7 +37,7 @@ public class ViewUtil {
         CellStyle cellStyle = new CellStyle(CellStyle.HorizontalAlign.center);
         table.addCell("App Menu", cellStyle);
         table.addCell("1) List All  2) Search  3) Add new  4) Update", cellStyle);
-        table.addCell("5) Activate/Deactivate member  0) Back to System", cellStyle);
+        table.addCell("5) Activate/Deactivate member  0) Back", cellStyle);
         table.setColumnWidth(0, 50, 100);
 
         System.out.println(table.render());

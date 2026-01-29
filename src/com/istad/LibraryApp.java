@@ -53,8 +53,7 @@ public class LibraryApp {
             switch (menu) {
                 case 0 -> returnBack();
                 case 1 -> HelperUtil.listAllMember();
-                case 2 -> {
-                }
+                case 2 -> HelperUtil.searchMember();
                 case 3 -> HelperUtil.addMember();
                 case 4 -> HelperUtil.updateMember();
                 case 5 -> HelperUtil.deleteMember();
@@ -68,4 +67,5 @@ public class LibraryApp {
         LibraryApp system = new LibraryApp();
         system.start();
     }
+
 }

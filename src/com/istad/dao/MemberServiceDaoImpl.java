@@ -18,6 +18,50 @@ public class MemberServiceDaoImpl implements MemberServiceDao{
         conn = Database.getConn();
     }
 
+
+    @Override
+    public List<Member> searchMember(String key) throws SQLException {
+        List<Member> members = new ArrayList<>();
+
+        String sql = """
+                SELECT *
+                FROM member
+                WHERE
+                member_code ILIKE ?
+                OR full_name ILIKE ?
+                OR phone ILIKE ?
+                OR email ILIKE ?
+                OR address ILIKE ?
+                ORDER BY full_name;
+                """;
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        String keyword = "%" + key + "%";
+
+        pstmt.setString(1,keyword);
+        pstmt.setString(2,keyword);
+        pstmt.setString(3,keyword);
+        pstmt.setString(4,keyword);
+        pstmt.setString(5,keyword);
+
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            Member member = new Member();
+            member.setMemberId(rs.getInt("member_id"));
+            member.setMemberCode(rs.getString("member_code"));
+            member.setFullName(rs.getString("full_name"));
+            member.setGender(rs.getString("gender"));
+            member.setPhone(rs.getString("phone"));
+            member.setEmail(rs.getString("email"));
+            member.setAddress(rs.getString("address"));
+            member.setJoinDate(rs.getDate("join_date").toLocalDate());
+            member.setStatus(rs.getString("status"));
+
+            members.add(member);
+        }
+        return members;
+    }
+
     @Override
     public boolean existByCode(String memberCode) throws SQLException {
         String sql = """

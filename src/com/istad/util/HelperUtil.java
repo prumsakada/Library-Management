@@ -177,4 +177,15 @@ public class HelperUtil {
         }
     }
 
+    public static void searchMember(){
+        ViewUtil.printHeader("search Member");
+        String key = InputUtil.getText("Enter your Option");
+        try{
+            List<Member> memberList = memberService.searchMember(key);
+            ViewUtil.printMemberList(memberList);
+        } catch (RuntimeException e) {
+            ViewUtil.printHeader(e.getMessage());
+        }
+    }
+
 }

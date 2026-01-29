@@ -18,6 +18,16 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public List<Member> searchMember(String key) {
+        try{
+            return memberServiceDao.searchMember(key);
+        } catch (SQLException e) {
+            ViewUtil.printHeader("SQL errored: "+e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void deleteByCode(String memberCode) {
         try{
             if (!memberServiceDao.existByCode(memberCode))

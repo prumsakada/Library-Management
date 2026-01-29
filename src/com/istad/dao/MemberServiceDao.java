@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MemberServiceDao {
+
+    List<Member>searchMember(String key) throws SQLException;
+
     boolean existByCode(String memberCode) throws SQLException;
 
     int deleteByCode(String memberCode) throws SQLException;

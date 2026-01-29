@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface MemberService {
 
+    List<Member> searchMember(String key);
+
     void deleteByCode(String memberCode);
 
     void save(Member member);
