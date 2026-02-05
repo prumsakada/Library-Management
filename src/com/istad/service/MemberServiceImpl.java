@@ -18,6 +18,38 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public boolean activateMember(String memberCode) {
+        try {
+            return memberServiceDao.setStatus(memberCode,"ACTIVE");
+        } catch (SQLException e) {
+            ViewUtil.printHeader("SQL errored: "+e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
+    public boolean deactivateMember(String memberCode) {
+        try{
+            return  memberServiceDao.setStatus(memberCode,"INACTIVE");
+        } catch (SQLException e) {
+            ViewUtil.printHeader("SQL errored: "+e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean toggleMemberStatus(String memberCode, String currentStatus) {
+        try{
+            String newStatus = currentStatus.equalsIgnoreCase("ACTIVE") ? "INACTIVE" : "ACTIVE";
+            return memberServiceDao.setStatus(memberCode, newStatus);
+        } catch (SQLException e) {
+            ViewUtil.printHeader("SQL errored: "+e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public List<Member> searchMember(String key) {
         try{
             return memberServiceDao.searchMember(key);
@@ -45,24 +77,24 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void updateByCode(String memberCode, Member member) {
         try {
-            Member foundBook = memberServiceDao.findByCode(memberCode)
+            Member foundMember = memberServiceDao.findByCode(memberCode)
                     .orElseThrow(()-> new RuntimeException("Member code not found...!"));
             if (!member.getFullName().isBlank())
-                foundBook.setFullName(member.getFullName());
+                foundMember.setFullName(member.getFullName());
             if (!member.getGender().isBlank())
-                foundBook.setGender(member.getGender());
+                foundMember.setGender(member.getGender());
             if (!member.getPhone().isBlank())
-                foundBook.setPhone(member.getPhone());
+                foundMember.setPhone(member.getPhone());
             if (!member.getEmail().isBlank())
-                foundBook.setEmail(member.getEmail());
+                foundMember.setEmail(member.getEmail());
             if (!member.getAddress().isBlank())
-                foundBook.setAddress(member.getAddress());
+                foundMember.setAddress(member.getAddress());
             if (member.getJoinDate() != null)
-                foundBook.setJoinDate(member.getJoinDate());
+                foundMember.setJoinDate(member.getJoinDate());
             if (!member.getStatus().isBlank())
-                foundBook.setStatus(member.getStatus());
+                foundMember.setStatus(member.getStatus());
 
-            int affactedRow = memberServiceDao.updateByCode(memberCode,foundBook);
+            int affactedRow = memberServiceDao.updateByCode(memberCode,foundMember);
             if (affactedRow < 1)
                 throw  new RuntimeException("Update operation failed...");
 

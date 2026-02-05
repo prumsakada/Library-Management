@@ -25,7 +25,7 @@ public class ViewUtil {
     public static void bookMenu() {
         Table table = new Table(1, BorderStyle.UNICODE_BOX_DOUBLE_BORDER_WIDE);
         CellStyle cellStyle = new CellStyle(CellStyle.HorizontalAlign.center);
-        table.addCell(ColorUtil.CYAN + "App Menu" + ColorUtil.RESET, cellStyle);
+        table.addCell(ColorUtil.CYAN + "Book Menu" + ColorUtil.RESET, cellStyle);
         table.addCell(ColorUtil.BLUE + "1) List All  2) Search  3) Add new  4) Update" + ColorUtil.RESET, cellStyle);
         table.addCell(ColorUtil.BLUE + "5) Delete  6) Check Available" + ColorUtil.RESET + ColorUtil.RED + "  " + "0) Back"
                 + ColorUtil.RESET, cellStyle);
@@ -37,10 +37,22 @@ public class ViewUtil {
     public static void memberMenu() {
         Table table = new Table(1, BorderStyle.UNICODE_BOX_DOUBLE_BORDER_WIDE);
         CellStyle cellStyle = new CellStyle(CellStyle.HorizontalAlign.center);
-        table.addCell(ColorUtil.CYAN+"App Menu"+ColorUtil.RESET, cellStyle);
+        table.addCell(ColorUtil.CYAN+"Member Menu"+ColorUtil.RESET, cellStyle);
         table.addCell(ColorUtil.BLUE+"1) List All  2) Search  3) Add new  4) Update"+ColorUtil.RESET, cellStyle);
-        table.addCell(ColorUtil.BLUE+"5) Activate/Deactivate member"+ColorUtil.RESET+"  "+
-              ColorUtil.RED+ "  0) Back"+ColorUtil.RESET, cellStyle);
+        table.addCell(ColorUtil.BLUE+"5) Activate/Deactivate member  6) Delete"+ColorUtil.RESET+"  "+
+                ColorUtil.RED+ "  0) Back"+ColorUtil.RESET, cellStyle);
+        table.setColumnWidth(0, 50, 100);
+
+        System.out.println(table.render());
+    }
+    public static void statusMenu() {
+        Table table = new Table(1, BorderStyle.UNICODE_BOX_DOUBLE_BORDER_WIDE);
+        CellStyle cellStyle = new CellStyle(CellStyle.HorizontalAlign.center);
+        table.addCell(ColorUtil.CYAN+"Status Menu"+ColorUtil.RESET,cellStyle);
+        table.addCell(ColorUtil.BLUE+"1) Active"+ColorUtil.RESET);
+        table.addCell(ColorUtil.BLUE+"2) Deactivate"+ColorUtil.RESET);
+        table.addCell(ColorUtil.BLUE+"3) List All"+ColorUtil.RESET);
+        table.addCell(ColorUtil.RED+"0) Back"+ColorUtil.RESET);
         table.setColumnWidth(0, 50, 100);
 
         System.out.println(table.render());

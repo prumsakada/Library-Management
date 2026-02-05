@@ -18,13 +18,12 @@ public class BookServiceImpl implements BookService {
         bookServiceDao = new BookServiceDaoImpl();
     }
 
-
     @Override
     public boolean checkAvailable(String bookCode) throws SQLException {
         try {
             return bookServiceDao.isBookAvailable(bookCode);
         } catch (SQLException e) {
-            e.printStackTrace();
+            ViewUtil.printHeader("SQL error: "+e.getMessage());
             return false;
         }
     }

@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface MemberService {
 
+    boolean activateMember(String memberCode);
+    boolean deactivateMember(String memberId);
+    boolean toggleMemberStatus(String memberCode, String currentStatus);
+
     List<Member> searchMember(String key);
 
     void deleteByCode(String memberCode);

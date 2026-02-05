@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class InputUtil {
     private static Scanner scanner = new Scanner(System.in);
@@ -15,6 +16,39 @@ public class InputUtil {
         ViewUtil.print(label + "-> ", false);
         return scanner.nextLine();
     }
+
+    public static String getGmail(String label) {
+        // Gmail regex: user@gmail.com only
+        String gmailRegex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
+        Pattern pattern = Pattern.compile(gmailRegex);
+
+        while (true) {
+            String input = getText(label); // use your existing scanner method
+            if (pattern.matcher(input).matches()) {
+                return input; // valid Gmail
+            } else {
+                System.out.println("Invalid Gmail! Please enter a valid Gmail address (example@gmail.com).");
+            }
+        }
+    }
+
+    public static String getGmailNullable(String label) {
+        String gmailRegex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
+        Pattern pattern = Pattern.compile(gmailRegex);
+
+        while (true) {
+            String input = getText(label);
+            input = input.trim();
+            if (input.isEmpty()) {
+                return null;
+            } else if (pattern.matcher(input).matches()) {
+                return input;
+            } else {
+                System.out.println("Invalid Gmail! Please enter a valid Gmail address (example@gmail.com) or leave empty to skip.");
+            }
+        }
+    }
+
 
     public static String getTextNullable(String label) {
         ViewUtil.print(label + " (Enter to skip) -> ", false);

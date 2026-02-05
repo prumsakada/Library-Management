@@ -58,7 +58,8 @@ public class LibraryApp {
                 case 2 -> HelperUtil.searchMember();
                 case 3 -> HelperUtil.addMember();
                 case 4 -> HelperUtil.updateMember();
-                case 5 -> HelperUtil.deleteMember();
+                case 5 -> HelperUtil.setStatus();
+                case 6 -> HelperUtil.deleteMember();
                 default -> ViewUtil.printHeader(ColorUtil.RED+"Invalid Option Please Try Again"+ColorUtil.RESET);
             }
         } while (true);

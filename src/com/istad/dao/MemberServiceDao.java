@@ -9,6 +9,8 @@ import java.util.Optional;
 
 public interface MemberServiceDao {
 
+    boolean setStatus(String memberCode , String status) throws SQLException;
+
     List<Member>searchMember(String key) throws SQLException;
 
     boolean existByCode(String memberCode) throws SQLException;

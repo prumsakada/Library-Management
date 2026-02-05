@@ -20,6 +20,23 @@ public class MemberServiceDaoImpl implements MemberServiceDao{
 
 
     @Override
+    public boolean setStatus(String memberCode, String status) throws SQLException{
+        String sql = """
+                UPDATE member
+                SET status = ?
+                WHERE member_code = ?
+                """;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, status);
+            pstmt.setString(2, memberCode);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("DAO error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
     public List<Member> searchMember(String key) throws SQLException {
         List<Member> members = new ArrayList<>();
 
