@@ -16,6 +16,13 @@ public class InputUtil {
         return scanner.nextLine();
     }
 
+    public static String getTextNullable(String label) {
+        ViewUtil.print(label + " (Enter to skip) -> ", false);
+        String input = scanner.nextLine().trim();
+
+        return input.isEmpty() ? null : input;
+    }
+
     public static BigDecimal getMoney(String label) {
         do {
             ViewUtil.print(label + "-> ", false);
@@ -25,6 +32,23 @@ public class InputUtil {
                 ViewUtil.print(e.getMessage(), true);
             }
         } while(true);
+    }
+
+    public static BigDecimal getMoneyNullable(String label) {
+        while (true) {
+            ViewUtil.print(label + " (Enter to skip) -> ", false);
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()) {
+                return null;
+            }
+
+            try {
+                return new BigDecimal(input);
+            } catch (NumberFormatException e) {
+                ViewUtil.print("Invalid money format. Try again.", true);
+            }
+        }
     }
 
     public static Integer getInteger(String label) {
@@ -38,6 +62,23 @@ public class InputUtil {
         } while(true);
     }
 
+    public static Integer getIntegerNullable(String label) {
+        while (true) {
+            ViewUtil.print(label + " (Enter to skip) -> ", false);
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()) {
+                return null;
+            }
+
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                ViewUtil.print("❌ Please enter a valid integer or press Enter to skip.", true);
+            }
+        }
+    }
+
     public static Double getDouble(String label) {
         do {
             ViewUtil.print(label + "-> ", false);
@@ -48,6 +89,7 @@ public class InputUtil {
             }
         } while(true);
     }
+
     public static LocalDate getLocalDate(String label) {
         while (true) {
             try {

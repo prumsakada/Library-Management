@@ -3,6 +3,7 @@ package com.istad.service;
 import com.istad.dao.BookServiceDao;
 import com.istad.dao.BookServiceDaoImpl;
 import com.istad.model.Book;
+import com.istad.util.ColorUtil;
 import com.istad.util.ViewUtil;
 
 import java.sql.SQLException;
@@ -17,12 +18,23 @@ public class BookServiceImpl implements BookService {
         bookServiceDao = new BookServiceDaoImpl();
     }
 
+
+    @Override
+    public boolean checkAvailable(String bookCode) throws SQLException {
+        try {
+            return bookServiceDao.isBookAvailable(bookCode);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     @Override
     public List<Book> searchBook(String key) {
         try{
             return bookServiceDao.searchBook(key);
         } catch (SQLException e) {
-            ViewUtil.printHeader("SQL errored: "+e.getMessage());
+            ViewUtil.printHeader(ColorUtil.RED+"SQL errored: "+e.getMessage()+ColorUtil.RESET);
             throw new RuntimeException(e);
         }
 

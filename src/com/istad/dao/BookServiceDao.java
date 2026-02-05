@@ -9,6 +9,8 @@ import java.util.Optional;
 
 public interface BookServiceDao {
 
+    boolean isBookAvailable (String bookCode) throws SQLException;
+
     List<Book> searchBook(String key) throws SQLException;
 
     boolean existByCode(String bookCode) throws SQLException;

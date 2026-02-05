@@ -20,6 +20,29 @@ public class BookServiceDaoImpl implements BookServiceDao {
 
 
     @Override
+    public boolean isBookAvailable(String bookCode) throws SQLException {
+        String sql = """
+        SELECT quantity, status
+        FROM books
+        WHERE book_code = ?
+    """;
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, bookCode);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int quantity = rs.getInt("quantity");
+                String status = rs.getString("status");
+
+                return quantity > 0 && "AVAILABLE".equalsIgnoreCase(status);
+            }
+        }
+        return false;
+    }
+
+    @Override
     public List<Book> searchBook(String key) throws SQLException {
         List<Book> books = new ArrayList<>();
         Integer publishYear = null;

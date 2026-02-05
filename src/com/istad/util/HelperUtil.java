@@ -8,6 +8,7 @@ import com.istad.service.MemberService;
 import com.istad.service.MemberServiceImpl;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -123,14 +124,14 @@ public class HelperUtil {
 
     public static void updateMember() {
         ViewUtil.printHeader("Add Member to Database");
-        String memberCode = InputUtil.getText("Enter Code : ");
-        String fullName = InputUtil.getText("Enter Name : ");
-        String gender = InputUtil.getText("Enter Gender : ");
-        String phone = InputUtil.getText("Enter Phone : ");
-        String email = InputUtil.getText("Enter Email : ");
-        String address = InputUtil.getText("Enter Address : ");
-        LocalDate joinDate = InputUtil.getLocalDate("Enter Join Date : ");
-        String status = InputUtil.getText("Enter status");
+        String memberCode = InputUtil.getTextNullable("Enter Code : ");
+        String fullName = InputUtil.getTextNullable("Enter Name : ");
+        String gender = InputUtil.getTextNullable("Enter Gender : ");
+        String phone = InputUtil.getTextNullable("Enter Phone : ");
+        String email = InputUtil.getTextNullable("Enter Email : ");
+        String address = InputUtil.getTextNullable("Enter Address : ");
+        LocalDate joinDate = InputUtil.getLocalDateNullable("Enter Join Date : ");
+        String status = InputUtil.getTextNullable("Enter status");
 
         Member member = new Member();
         member.setFullName(fullName);
@@ -185,6 +186,22 @@ public class HelperUtil {
             ViewUtil.printMemberList(memberList);
         } catch (RuntimeException e) {
             ViewUtil.printHeader(e.getMessage());
+        }
+    }
+
+    public static void checkAvailable(){
+        ViewUtil.printHeader("Check Avalable Availability");
+        try {
+            String bookCode = InputUtil.getText("Enter Code : ");
+            boolean available = bookService.checkAvailable(bookCode);
+            if (available) {
+                ViewUtil.printHeader("Book is AVAILABLE");
+            }
+            if (!available) {
+                ViewUtil.printHeader("Reason: Out of stock or book is inactive.");
+            }
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
