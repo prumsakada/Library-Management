@@ -136,7 +136,7 @@ public class MemberServiceDaoImpl implements MemberServiceDao{
     @Override
     public int save(Member member) throws SQLException {
         String sql = """
-                INSERT INTO books (member_code,full_name,gender,phone,email
+                INSERT INTO member (member_code,full_name,gender,phone,email
                 ,address,join_date, status)
                 VALUES(?,?,?,?,?,?,?,?)
                 """;
@@ -149,7 +149,6 @@ public class MemberServiceDaoImpl implements MemberServiceDao{
         pstmt.setString(6, member.getAddress());
         pstmt.setDate(7, Date.valueOf(member.getJoinDate()));
         pstmt.setString(8, member.getStatus());
-
 
         return pstmt.executeUpdate();
     }
@@ -168,7 +167,7 @@ public class MemberServiceDaoImpl implements MemberServiceDao{
         if (rs.next()) {
             Member member = new Member();
             member.setMemberId(rs.getInt("member_id"));
-            member.setMemberCode(rs.getString("book_code"));
+            member.setMemberCode(rs.getString("member_code"));
             member.setFullName(rs.getString("full_name"));
             member.setGender(rs.getString("gender"));
             member.setPhone(rs.getString("phone"));

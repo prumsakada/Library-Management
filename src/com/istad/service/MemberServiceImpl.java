@@ -74,33 +74,40 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
-    @Override
     public void updateByCode(String memberCode, Member member) {
         try {
             Member foundMember = memberServiceDao.findByCode(memberCode)
-                    .orElseThrow(()-> new RuntimeException("Member code not found...!"));
-            if (!member.getFullName().isBlank())
+                    .orElseThrow(() -> new RuntimeException("Member code not found...!"));
+
+            if (member.getFullName() != null && !member.getFullName().isBlank())
                 foundMember.setFullName(member.getFullName());
-            if (!member.getGender().isBlank())
+
+            if (member.getGender() != null && !member.getGender().isBlank())
                 foundMember.setGender(member.getGender());
-            if (!member.getPhone().isBlank())
+
+            if (member.getPhone() != null && !member.getPhone().isBlank())
                 foundMember.setPhone(member.getPhone());
-            if (!member.getEmail().isBlank())
+
+            if (member.getEmail() != null && !member.getEmail().isBlank())
                 foundMember.setEmail(member.getEmail());
-            if (!member.getAddress().isBlank())
+
+            if (member.getAddress() != null && !member.getAddress().isBlank())
                 foundMember.setAddress(member.getAddress());
+
             if (member.getJoinDate() != null)
                 foundMember.setJoinDate(member.getJoinDate());
-            if (!member.getStatus().isBlank())
+
+            if (member.getStatus() != null && !member.getStatus().isBlank())
                 foundMember.setStatus(member.getStatus());
 
-            int affactedRow = memberServiceDao.updateByCode(memberCode,foundMember);
-            if (affactedRow < 1)
-                throw  new RuntimeException("Update operation failed...");
+            int affectedRow = memberServiceDao.updateByCode(memberCode, foundMember);
+
+            if (affectedRow < 1)
+                throw new RuntimeException("Update operation failed...");
 
         } catch (SQLException e) {
-            ViewUtil.printHeader("SQL error: "+e.getMessage());
-            throw new RuntimeException(e.getMessage());
+            ViewUtil.printHeader("SQL error: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 

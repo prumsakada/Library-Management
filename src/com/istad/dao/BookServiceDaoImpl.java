@@ -18,7 +18,6 @@ public class BookServiceDaoImpl implements BookServiceDao {
         conn = Database.getConn();
     }
 
-
     @Override
     public boolean isBookAvailable(String bookCode) throws SQLException {
         String sql = """
@@ -149,7 +148,6 @@ public class BookServiceDaoImpl implements BookServiceDao {
         pstmt.setBigDecimal(7, book.getPrice());
         pstmt.setInt(8, book.getQty());
         pstmt.setString(9, book.getStatus());
-
 
         return pstmt.executeUpdate();
     }

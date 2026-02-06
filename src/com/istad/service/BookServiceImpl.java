@@ -8,13 +8,12 @@ import com.istad.util.ViewUtil;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public class BookServiceImpl implements BookService {
 
     private final BookServiceDao bookServiceDao;
 
-    public BookServiceImpl(){
+    public BookServiceImpl() {
         bookServiceDao = new BookServiceDaoImpl();
     }
 
@@ -23,17 +22,17 @@ public class BookServiceImpl implements BookService {
         try {
             return bookServiceDao.isBookAvailable(bookCode);
         } catch (SQLException e) {
-            ViewUtil.printHeader("SQL error: "+e.getMessage());
+            ViewUtil.printHeader("SQL error: " + e.getMessage());
             return false;
         }
     }
 
     @Override
     public List<Book> searchBook(String key) {
-        try{
+        try {
             return bookServiceDao.searchBook(key);
         } catch (SQLException e) {
-            ViewUtil.printHeader(ColorUtil.RED+"SQL errored: "+e.getMessage()+ColorUtil.RESET);
+            ViewUtil.printHeader(ColorUtil.RED + "SQL errored: " + e.getMessage() + ColorUtil.RESET);
             throw new RuntimeException(e);
         }
 
@@ -41,7 +40,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteByCode(String bookCode) {
-        try{
+        try {
             if (!bookServiceDao.existByCode(bookCode))
                 throw new RuntimeException("Book code do not exist...!");
             int affactedRow = bookServiceDao.deleteByCode(bookCode);
@@ -49,20 +48,20 @@ public class BookServiceImpl implements BookService {
                 throw new RuntimeException("Delete Operation failed...");
 
         } catch (SQLException e) {
-            System.out.println("SQL error : "+e.getMessage());
+            System.out.println("SQL error : " + e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
 
     @Override
     public void save(Book book) {
-        try{
+        try {
             int affectedRow = bookServiceDao.save(book);
-            if (affectedRow < 1){
+            if (affectedRow < 1) {
                 throw new RuntimeException("Insert new record failed");
             }
-        }catch (SQLException e){
-            System.out.println("SQL errored: "+e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("SQL errored: " + e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -71,41 +70,49 @@ public class BookServiceImpl implements BookService {
     public void updateByCode(String bookCode, Book book) {
         try {
             Book foundBook = bookServiceDao.findByCode(bookCode)
-                    .orElseThrow(()-> new RuntimeException("Book code not found...!"));
-            if (!book.getTitle().isBlank())
+                    .orElseThrow(() -> new RuntimeException("Book code not found...!"));
+
+            if (book.getTitle() != null && !book.getTitle().isBlank())
                 foundBook.setTitle(book.getTitle());
-            if (!book.getAuthor().isBlank())
+
+            if (book.getAuthor() != null && !book.getAuthor().isBlank())
                 foundBook.setAuthor(book.getAuthor());
-            if (!book.getCategory().isBlank())
+
+            if (book.getCategory() != null && !book.getCategory().isBlank())
                 foundBook.setCategory(book.getCategory());
-            if (!book.getPublisher().isBlank())
+
+            if (book.getPublisher() != null && !book.getPublisher().isBlank())
                 foundBook.setPublisher(book.getPublisher());
+
             if (book.getPublishYear() != null)
                 foundBook.setPublishYear(book.getPublishYear());
+
             if (book.getPrice() != null)
                 foundBook.setPrice(book.getPrice());
+
             if (book.getQty() != null)
                 foundBook.setQty(book.getQty());
-            if (!book.getStatus().isBlank())
+
+            if (book.getStatus() != null && !book.getStatus().isBlank())
                 foundBook.setStatus(book.getStatus());
 
-            int affactedRow = bookServiceDao.updateByCode(bookCode,foundBook);
-            if (affactedRow < 1)
-                throw  new RuntimeException("Update operation failed...");
+            int affectedRow = bookServiceDao.updateByCode(bookCode, foundBook);
+
+            if (affectedRow < 1)
+                throw new RuntimeException("Update operation failed...");
 
         } catch (SQLException e) {
-            ViewUtil.printHeader("SQL error: "+e.getMessage());
-            throw new RuntimeException(e.getMessage());
+            ViewUtil.printHeader("SQL error: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
-
     @Override
     public List<Book> findAll() {
-        try{
+        try {
             return bookServiceDao.findAll();
-        }catch (SQLException e){
-            ViewUtil.printHeader("SQL errored: "+e.getMessage());
+        } catch (SQLException e) {
+            ViewUtil.printHeader("SQL errored: " + e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
 
